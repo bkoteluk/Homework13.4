@@ -1,12 +1,16 @@
 package pl.homework.lib;
 
+import java.util.Arrays;
+
 public class SumArrayParts {
 
     private static int partSum(int[] array, int startIndex, int endIndex) {
         int partSum = 0;
-        for (int i = startIndex; i < endIndex; i++) {
+        for (int i = startIndex; i <= endIndex; i++) {
+            System.out.print(array[i] + ", ");
             partSum += array[i];
         }
+        System.out.println();
         return partSum;
     }
 
@@ -19,12 +23,13 @@ public class SumArrayParts {
             throw new ArrayIndexOutOfBoundsException("Długość tablicy jest mniejsza niż drugi argument");
         }
 
-        int arrayLength = array.length%number == 0 ? array.length/number : array.length/number + 1;
-        int[] sumArray = new int[arrayLength];
+        int arrayLength = array.length%(number-1) == 0 ? (array.length/(number-1)-1) : array.length/(number-1);
+        int[] sumArray = new int[number];
 
-        for (int i = 0; i < arrayLength; i++) {
-            int startIndex = number*i;
-            int endIndex = number*(i+1) < array.length ?  number*(i+1) : array.length;
+        for (int i = 0; i < number ; i++) {
+            int startIndex = (arrayLength)*i < array.length ? (arrayLength)*i : array.length-1;
+            int endIndex = arrayLength*(i+1)-1 < array.length ?  arrayLength*(i+1)-1 : array.length-1;
+
             sumArray[i] = partSum(array, startIndex, endIndex);
         }
         return sumArray;
